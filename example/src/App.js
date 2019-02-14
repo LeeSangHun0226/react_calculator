@@ -13,7 +13,42 @@ class App extends Component {
     operations: [],
   }
 
-  handleClick = () => {
+  calculateOperations = () => {
+    const { operations } = this.state;
+    let result = operations.join('');
+    if (result) {
+      result = math.eval(result);
+      result = math.format(result, { precision: 14 });
+      result = String(result);
+      this.setState({
+        operations: [result],
+      });
+    }
+  }
+
+  handleClick = (e) => {
+    const { operations } = this.state;
+    const value = e.target.getAttribute('data-value');
+    const newOperations = update(operations, {
+      $push: [value],
+    });
+    switch (value) {
+      case 'clear':
+        this.setState({
+          operations: [],
+        });
+        break;
+
+      case 'equal':
+        this.calculateOperations();
+        break;
+
+      default:
+        this.setState({
+          operations: newOperations,
+        });
+        break;
+    }
   }
 
   render() {
