@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
 import math from 'mathjs';
+import styled from 'styled-components';
 
 import Buttons from './Buttons';
 import Button from './Button';
@@ -9,6 +10,13 @@ import Display from './Display';
 import calculateButtonData from './calculateButtonData';
 import validateDataValue from './helper/validateDataValue';
 import './App.css';
+
+const Wrapper = styled.div`
+  height: 400px;
+  width: 300px;
+  background: #EBEBEB;
+  position: relative;
+`;
 
 class App extends Component {
   state = {
@@ -58,7 +66,7 @@ class App extends Component {
     const { operations } = this.state;
     const { handleClick } = this;
     return (
-      <div className="App">
+      <Wrapper>
         <Display data={operations} />
         <Buttons>
           {
@@ -70,7 +78,7 @@ class App extends Component {
             })
           }
         </Buttons>
-      </div>
+      </Wrapper>
     );
   }
 }
